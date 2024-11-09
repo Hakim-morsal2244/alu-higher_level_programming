@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # File: 100-my_int.py
 
 class MyInt(int):
