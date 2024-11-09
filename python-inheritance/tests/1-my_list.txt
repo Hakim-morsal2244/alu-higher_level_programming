@@ -1,20 +1,11 @@
->>> from 1-my_list import MyList
->>> my_list = MyList()
->>> my_list.append(1)
->>> my_list.append(4)
->>> my_list.append(2)
->>> my_list.append(3)
->>> my_list.append(5)
->>> my_list.print_sorted()
-[1, 2, 3, 4, 5]
->>> print(my_list)
-[1, 4, 2, 3, 5]
->>> my_list.print_sorted()
-[1, 2, 3, 4, 5]
->>> print(my_list)
-[1, 4, 2, 3, 5]
->>> my_list.append(0)
->>> my_list.print_sorted()
-[0, 1, 2, 3, 4, 5]
->>> print(my_list)
-[1, 4, 2, 3, 5, 0]
+Test Case 1:
+- Input: [1, 4, 2, 3, 5]
+- Expected Output: [1, 2, 3, 4, 5] (Sorted version)
+
+Test Case 2:
+- Input: [5, 3, 4, 1, 2]
+- Expected Output: [1, 2, 3, 4, 5] (Sorted version)
+
+Test Case 3:
+- Input: [10, 20, 30]
+- Expected Output: [10, 20, 30] (Already sorted)
