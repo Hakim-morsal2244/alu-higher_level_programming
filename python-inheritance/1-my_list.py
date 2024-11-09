@@ -1,7 +1,13 @@
 #!/usr/bin/python3
-# 1-my_list.py
-class MyList(list):
-    def print_sorted(self):
-        """Prints the list, but sorted (ascending order) without modifying the original list."""
-        print(sorted(self))
 
+class MyList(list):
+    """
+    MyList class inherits from the built-in list.
+    It includes a method to print the list sorted in ascending order.
+    """
+
+    def print_sorted(self):
+        """
+        Prints the list in ascending order without modifying the original list.
+        """
+        print(sorted(self))
