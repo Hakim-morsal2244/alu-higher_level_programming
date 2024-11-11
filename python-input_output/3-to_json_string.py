@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 
+"""
+This module contains a function that returns the JSON representation
+of an object. It uses the `json.dumps()` method to serialize an object
+into a JSON-formatted string.
+"""
+
 import json
 
 
@@ -16,4 +22,7 @@ def to_json_string(my_obj):
     try:
         return json.dumps(my_obj)
     except TypeError as e:
-        raise TypeError(f"{my_obj} is not JSON serializable") from e
+        # Split error message into two lines to avoid E501
+        raise TypeError(
+            f"{my_obj} is not JSON serializable"
+        ) from e
