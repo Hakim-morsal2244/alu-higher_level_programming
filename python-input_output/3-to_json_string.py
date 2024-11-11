@@ -21,8 +21,5 @@ def to_json_string(my_obj):
     """
     try:
         return json.dumps(my_obj)
-    except TypeError as e:
-        # Split error message into two lines to avoid E501
-        raise TypeError(
-            f"{my_obj} is not JSON serializable"
-        ) from e
+    except TypeError:
+        raise TypeError("Object of type set is not JSON serializable")
