@@ -1,27 +1,35 @@
 #!/usr/bin/python3
-"""Square class that inherits from Rectangle."""
-
+"""Square module"""
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """Represents a square, inherits from Rectangle."""
+    """Represents a square"""
 
     def __init__(self, size, x=0, y=0, id=None):
-        """Initialize the Square instance."""
+        """Initializes a square"""
         super().__init__(size, size, x, y, id)
 
     def __str__(self):
-        """Override the __str__ method to represent the Square."""
-        return f"[Square] ({self.id}) {self.x}/{self.y} - {self.width}"
+        """Returns a string representation of a square"""
+        return "[Square] ({}) {}/{} - {}".format(self.id, self.x, self.y, self.width)
 
     @property
     def size(self):
-        """Get the size of the square."""
+        """Gets the size of the square"""
         return self.width
 
     @size.setter
     def size(self, value):
-        """Set the size of the square."""
+        """Sets the size of the square"""
         self.width = value
         self.height = value
+
+    def to_dictionary(self):
+        """Returns the dictionary representation of a Square"""
+        return {
+            'id': self.id,
+            'size': self.size,
+            'x': self.x,
+            'y': self.y
+        }
