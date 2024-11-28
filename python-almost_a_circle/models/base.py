@@ -91,7 +91,9 @@ class Base:
         # If the list of objects is not empty, extract the data and write to CSV
         if list_objs:
             for obj in list_objs:
-                row = [obj.to_dictionary()[key] for key in list_keys]
+                row = [
+                    obj.to_dictionary()[key] for key in list_keys
+                ]
                 matrix.append(row)
 
         # Write to the CSV file
@@ -121,7 +123,9 @@ class Base:
 
         # Convert the CSV data into a dictionary with the correct keys
         for csv_elem in csv_list:
-            dict_csv = {list_keys[i]: int(csv_elem[i]) for i in range(len(list_keys))}
+            dict_csv = {
+                list_keys[i]: int(csv_elem[i]) for i in range(len(list_keys))
+            }
             matrix.append(dict_csv)
 
         # Create instances from the dictionary data
