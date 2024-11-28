@@ -11,15 +11,6 @@ class Rectangle:
     """
 
     def __init__(self, width, height, x=0, y=0, id=None):
-        """
-        Initialize the Rectangle instance.
-        Args:
-            width (int): The width of the rectangle.
-            height (int): The height of the rectangle.
-            x (int): The x coordinate.
-            y (int): The y coordinate.
-            id (int): The id of the rectangle.
-        """
         self.width = width
         self.height = height
         self.x = x
@@ -28,12 +19,10 @@ class Rectangle:
 
     @property
     def width(self):
-        """Getter for width."""
         return self.__width
 
     @width.setter
     def width(self, value):
-        """Setter for width with validation."""
         if not isinstance(value, int):
             raise TypeError("width must be an integer")
         if value <= 0:
@@ -42,12 +31,10 @@ class Rectangle:
 
     @property
     def height(self):
-        """Getter for height."""
         return self.__height
 
     @height.setter
     def height(self, value):
-        """Setter for height with validation."""
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
         if value <= 0:
@@ -56,12 +43,10 @@ class Rectangle:
 
     @property
     def x(self):
-        """Getter for x."""
         return self.__x
 
     @x.setter
     def x(self, value):
-        """Setter for x with validation."""
         if not isinstance(value, int):
             raise TypeError("x must be an integer")
         if value < 0:
@@ -70,12 +55,10 @@ class Rectangle:
 
     @property
     def y(self):
-        """Getter for y."""
         return self.__y
 
     @y.setter
     def y(self, value):
-        """Setter for y with validation."""
         if not isinstance(value, int):
             raise TypeError("y must be an integer")
         if value < 0:
@@ -83,9 +66,11 @@ class Rectangle:
         self.__y = value
 
     def area(self):
-        """
-        Calculate and return the area of the rectangle.
-        Returns:
-            int: The area of the rectangle (width * height).
-        """
         return self.width * self.height
+
+    def display(self):
+        """
+        Prints the rectangle instance using the '#' character.
+        """
+        for _ in range(self.height):
+            print("#" * self.width)
