@@ -1,53 +1,82 @@
 #!/usr/bin/python3
 """
-Unit tests for Rectangle class.
+Rectangle module.
+This module defines a Rectangle class.
 """
 
-import unittest
-from models.rectangle import Rectangle
-
-
-class TestRectangle(unittest.TestCase):
+class Rectangle:
     """
-    Test cases for Rectangle class.
+    Rectangle class with width, height, x, and y attributes.
     """
 
-    def test_width_type(self):
-        """Test width type validation."""
-        with self.assertRaises(TypeError):
-            Rectangle("10", 5)
+    def __init__(self, width, height, x=0, y=0, id=None):
+        """
+        Initialize the Rectangle instance.
+        Args:
+            width (int): The width of the rectangle.
+            height (int): The height of the rectangle.
+            x (int): The x coordinate.
+            y (int): The y coordinate.
+            id (int): The id of the rectangle.
+        """
+        self.width = width
+        self.height = height
+        self.x = x
+        self.y = y
+        self.id = id
 
-    def test_height_type(self):
-        """Test height type validation."""
-        with self.assertRaises(TypeError):
-            Rectangle(10, "5")
+    @property
+    def width(self):
+        """Getter for width."""
+        return self.__width
 
-    def test_width_value(self):
-        """Test width value validation."""
-        with self.assertRaises(ValueError):
-            Rectangle(-10, 5)
+    @width.setter
+    def width(self, value):
+        """Setter for width with validation."""
+        if not isinstance(value, int):
+            raise TypeError("width must be an integer")
+        if value <= 0:
+            raise ValueError("width must be > 0")
+        self.__width = value
 
-    def test_height_value(self):
-        """Test height value validation."""
-        with self.assertRaises(ValueError):
-            Rectangle(10, -5)
+    @property
+    def height(self):
+        """Getter for height."""
+        return self.__height
 
-    def test_x_type(self):
-        """Test x type validation."""
-        with self.assertRaises(TypeError):
-            Rectangle(10, 5, "1", 2)
+    @height.setter
+    def height(self, value):
+        """Setter for height with validation."""
+        if not isinstance(value, int):
+            raise TypeError("height must be an integer")
+        if value <= 0:
+            raise ValueError("height must be > 0")
+        self.__height = value
 
-    def test_y_type(self):
-        """Test y type validation."""
-        with self.assertRaises(TypeError):
-            Rectangle(10, 5, 1, "2")
+    @property
+    def x(self):
+        """Getter for x."""
+        return self.__x
 
-    def test_x_value(self):
-        """Test x value validation."""
-        with self.assertRaises(ValueError):
-            Rectangle(10, 5, -1, 2)
+    @x.setter
+    def x(self, value):
+        """Setter for x with validation."""
+        if not isinstance(value, int):
+            raise TypeError("x must be an integer")
+        if value < 0:
+            raise ValueError("x must be >= 0")
+        self.__x = value
 
-    def test_y_value(self):
-        """Test y value validation."""
-        with self.assertRaises(ValueError):
-            Rectangle(10, 5, 1, -2)
+    @property
+    def y(self):
+        """Getter for y."""
+        return self.__y
+
+    @y.setter
+    def y(self, value):
+        """Setter for y with validation."""
+        if not isinstance(value, int):
+            raise TypeError("y must be an integer")
+        if value < 0:
+            raise ValueError("y must be >= 0")
+        self.__y = value
