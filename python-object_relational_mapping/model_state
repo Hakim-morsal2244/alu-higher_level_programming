@@ -1,0 +1,43 @@
+"""
+Module: model_state
+
+This module contains the definitions for the State class that interacts with a MySQL database.
+It uses SQLAlchemy ORM for object-relational mapping to handle states in the database.
+
+Functions:
+    - Base: Base class for the ORM models.
+    - State: ORM class for states, representing the `states` table in the database.
+    
+Usage:
+    - This module is intended to be used for creating, fetching, updating, and deleting states from the database.
+    - The script should connect to a MySQL server running on localhost at port 3306.
+
+Example:
+    1. To delete states with 'a' in their name:
+       - Run the script with the necessary arguments: `python 13-model_state_delete_a.py root root hbtn_0e_6_usa`.
+       - States containing the letter 'a' will be deleted from the database.
+
+Notes:
+    - The module requires SQLAlchemy to be installed.
+    - Ensure the database `hbtn_0e_6_usa` exists and is properly configured.
+
+"""
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+
+Base = declarative_base()
+
+class State(Base):
+    __tablename__ = 'states'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(128), nullable=False)
+
+# Setup SQLAlchemy engine and session
+engine = create_engine('mysql+mysqldb://root:root@localhost/hbtn_0e_6_usa')
+Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()
