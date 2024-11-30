@@ -1,44 +1,43 @@
 #!/usr/bin/python3
-"""Delete states with the letter 'a' in their name"""
-import sys
 from model_state import Base, State
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import sys
 
 if __name__ == "__main__":
-    """Connect to MySQL and delete states with 'a' in the name"""
-    # Create engine and bind to Base
+    if len(sys.argv) != 4:
+        print("Usage: ./13-model_state_delete_a.py mysql_username "
+              "mysql_password database_name")
+        sys.exit(1)
+
+    username = sys.argv[1]
+    password = sys.argv[2]
+    db_name = sys.argv[3]
+
     engine = create_engine(
-        'mysql+mysqldb://{}:{}@localhost/{}'.format(
-            sys.argv[1], sys.argv[2], sys.argv[3]
-        ),
-        pool_pre_ping=True
+        f'mysql+mysqldb://{username}:{password}@localhost:3306/{db_name}'
     )
-    # Create session
+
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Fetch and print all states before deletion for debugging
-    all_states_before = session.query(State).all()
-    print("Before deletion:")
-    for state in all_states_before:
-        print(f"{state.id}: {state.name}")
+    # Query and check how many states have 'a' in their name
+    states_to_delete = session.query(State).filter(State.name.like('%a%')).all()
+    print(f"Found {len(states_to_delete)} states with 'a' in their name.")
 
-    # Query and delete all states with 'a' in their name using LIKE
-    states_to_delete = session.query(State).filter(
-            State.name.like('%a%')
-            ).all()
+    # Delete matching records
     for state in states_to_delete:
         session.delete(state)
 
     # Commit the changes
     session.commit()
+    print(f"Deleted {len(states_to_delete)} states.")
 
-    # Fetch and print all states after deletion for debugging
-    all_states_after = session.query(State).all()
-    print("After deletion:")
-    for state in all_states_after:
-        print(f"{state.id}: {state.name}")
+    # Check if there are any remaining states with 'a' in their name
+    remaining_states = session.query(State).filter(
+        State.name.like('%a%')
+    ).all()
+    print(f"Remaining states with 'a' in their name: "
+          f"{len(remaining_states)}")
 
-    # Close the session
     session.close()
