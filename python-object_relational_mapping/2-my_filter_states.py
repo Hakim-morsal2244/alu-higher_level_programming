@@ -1,41 +1,37 @@
 #!/usr/bin/python3
-"""
-This script lists all states from the hbtn_0e_0_usa database
-where the name matches the given argument.
-It takes 4 arguments: MySQL username, MySQL password, database name, and state name to search.
-The results are displayed in ascending order by states.id.
-"""
-
 import MySQLdb
 import sys
 
-if __name__ == "__main__":
-    # Get the arguments from the command line
+def filter_states():
+    """Connect to the MySQL database and fetch states based on user input."""
+    # Check if the right number of arguments is passed
+    if len(sys.argv) != 5:
+        return
+    
+    # Get arguments from the command line
     mysql_user = sys.argv[1]
     mysql_password = sys.argv[2]
-    db_name = sys.argv[3]
+    mysql_db = sys.argv[3]
     state_name = sys.argv[4]
 
-    # Establish the database connection
-    db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=mysql_user,
-        passwd=mysql_password,
-        db=db_name
-    )
-
-    # Create a cursor object
+    # Connect to MySQL database
+    db = MySQLdb.connect(host="localhost", user=mysql_user, passwd=mysql_password, db=mysql_db)
     cursor = db.cursor()
 
-    # Execute the query to retrieve states where name matches the input
-    cursor.execute("SELECT * FROM states WHERE name = %s ORDER BY id ASC", (state_name,))
+    # Use format() to safely insert the state name into the SQL query
+    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(state_name)
 
-    # Fetch and print all results
-    states = cursor.fetchall()
-    for state in states:
-        print(state)
+    # Execute the query
+    cursor.execute(query)
 
-    # Close the cursor and the connection
+    # Fetch and display the results
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+    # Close the database connection
     cursor.close()
     db.close()
+
+if __name__ == "__main__":
+    filter_states()
