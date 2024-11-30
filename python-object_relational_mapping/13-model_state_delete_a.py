@@ -1,4 +1,25 @@
 #!/usr/bin/python3
+"""
+This script deletes all states with the letter 'a' in their name from a 
+given MySQL database.
+
+Usage:
+    ./13-model_state_delete_a.py mysql_username mysql_password database_name
+
+Arguments:
+    mysql_username (str): The MySQL username.
+    mysql_password (str): The MySQL password.
+    database_name (str): The name of the MySQL database.
+
+This script connects to the MySQL database, finds and deletes all states 
+whose name contains the letter 'a', then prints the number of states 
+deleted and checks if any remain with the letter 'a' in their name.
+
+Dependencies:
+    model_state (model for the State class)
+    sqlalchemy (for database interaction)
+    sys (to handle command-line arguments)
+"""
 from model_state import Base, State
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
