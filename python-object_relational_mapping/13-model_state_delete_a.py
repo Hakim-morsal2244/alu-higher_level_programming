@@ -18,13 +18,27 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
 
+    # Fetch and print all states before deletion for debugging
+    all_states_before = session.query(State).all()
+    print("Before deletion:")
+    for state in all_states_before:
+        print(f"{state.id}: {state.name}")
+
     # Query and delete all states with 'a' in their name using LIKE
-    states_to_delete = session.query(State).filter(State.name.like('%a%')).all()
+    states_to_delete = session.query(State).filter(
+            State.name.like('%a%')
+            ).all()
     for state in states_to_delete:
         session.delete(state)
 
     # Commit the changes
     session.commit()
+
+    # Fetch and print all states after deletion for debugging
+    all_states_after = session.query(State).all()
+    print("After deletion:")
+    for state in all_states_after:
+        print(f"{state.id}: {state.name}")
 
     # Close the session
     session.close()
