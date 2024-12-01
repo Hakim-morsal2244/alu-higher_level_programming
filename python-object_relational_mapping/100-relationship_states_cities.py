@@ -1,33 +1,33 @@
 #!/usr/bin/python3
-from sys import argv
+"""
+Creates the State 'California' with the City 'San Francisco'
+"""
+import sys
+from relationship_state import Base, State
+from relationship_city import City
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from relationship_state import State
-from relationship_city import City
 
 if __name__ == "__main__":
-    # Get command-line arguments
-    username = argv[1]
-    password = argv[2]
-    db_name = argv[3]
+    # Arguments: mysql username, mysql password, and database name
+    username = sys.argv[1]
+    password = sys.argv[2]
+    database = sys.argv[3]
 
-    # Create a connection to the MySQL database
-    engine = create_engine(f"mysql+mysqldb://{username}:{password}@localhost/{db_name}", pool_pre_ping=True)
+    # Database connection
+    engine = create_engine(f"mysql+mysqldb://{username}:{password}@localhost/{database}")
+    Base.metadata.create_all(engine)
 
-    # Create a session
+    # Session creation
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    # Create a new state and city
-    california = State(name="California")
-    san_francisco = City(name="San Francisco", state=california)
+    # Create State and City objects
+    new_state = State(name="California")
+    new_city = City(name="San Francisco")
+    new_state.cities.append(new_city)
 
-    # Add the objects to the session
-    session.add(california)
-    session.add(san_francisco)
-
-    # Commit the session to save the changes
+    # Add and commit objects to the database
+    session.add(new_state)
     session.commit()
-
-    # Close the session
     session.close()
